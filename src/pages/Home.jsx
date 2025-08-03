@@ -1,7 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
+import { useOutletContext } from 'react-router-dom'
 
 
-const Home = ({ addToCart }) => {
+const Home = () => {
+
+    const { addToCart } = useOutletContext();
+
     const { isPending, error, data, isFetching } = useQuery({
         queryKey: ['storeData'],
         queryFn: async () => {

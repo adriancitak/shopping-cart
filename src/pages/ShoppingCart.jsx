@@ -1,4 +1,8 @@
-const ShoppingCart = ({ cartItems, removeFromCart, removeAllFromCart }) => {
+import { useOutletContext } from "react-router-dom";
+
+const ShoppingCart = () => {
+
+    const { cartItems, removeFromCart, removeAllFromCart } = useOutletContext();
 
     const totalPrice = cartItems.reduce((acc, item) => (item.price * item.quantity) + acc, 0);
 
@@ -18,7 +22,7 @@ const ShoppingCart = ({ cartItems, removeFromCart, removeAllFromCart }) => {
                                 <p>Quantity = {item.quantity}</p>
                                 <img src={item.image} alt={`image of ${item.title}`} style={{height: '200px', objectFit: 'contain'}}/>
                                 <p style={{fontSize: '1.5rem'}}>{item.title}</p>
-                                <p>${item.price}</p>
+                                <p className="price">${item.price}</p>
                                 <div>
                                     <button onClick={() => removeFromCart(item.id)}>x</button>
                                     <button onClick={() => removeAllFromCart(item.id)}>Remove All</button>
@@ -29,7 +33,10 @@ const ShoppingCart = ({ cartItems, removeFromCart, removeAllFromCart }) => {
                     ))}
                 </ul>
                 <br></br>
-                <p>Your total is ${totalPrice}</p>
+                <div style={{textAlign: 'center'}}>
+                    <h2>Your total is ${totalPrice.toFixed(2)}</h2>
+                    <button>Checkout</button>
+                </div>
            
         </>
     )

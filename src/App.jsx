@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { Outlet } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
 import ShoppingCart from './pages/ShoppingCart'
+import NavBar from './components/NavBar'
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -42,11 +44,15 @@ function App() {
     setCartItems(prev => prev.filter(item => item.id !== id));
   }
 
+  const context = { cartItems, addToCart, removeFromCart, removeAllFromCart};
+
 
   return (
     <>
-      <Home addToCart={addToCart}/>
-      <ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} removeAllFromCart={removeAllFromCart} />
+      {/* <Home addToCart={addToCart}/>
+      <ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} removeAllFromCart={removeAllFromCart} /> */}
+      <NavBar cartItems={cartItems} />
+      <Outlet context={context}/>
     </>
   )
 }
